@@ -19,15 +19,13 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         super.init()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters //10m
-        locationManager.distanceFilter = 5.0
-        // バックグラウンド実行中も座標取得する場合、trueにする
-//        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters //精度(10m)
+        locationManager.distanceFilter = 5.0 //更新する尺度
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.startUpdatingLocation()
         
-        locationManager.headingFilter = 20
-        locationManager.headingOrientation = .portrait
+        locationManager.headingFilter = 20 //更新尺度
+        locationManager.headingOrientation = .portrait //北を0とする
         locationManager.startUpdatingHeading()
 
     }
@@ -48,10 +46,6 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         lastSeenHeading = newHeading
-//            if angle == -1 { // コンパスの回転を初期化する
-//                angle = newHeading.magneticHeading
-//                compassNode?.rotation = SCNVector4(0, 1, 0, (angle / 180) * Double.pi)
-//            }
         }
     
     var coordinate: CLLocationCoordinate2D? {
